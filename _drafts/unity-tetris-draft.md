@@ -45,4 +45,61 @@ $ git init
 Initialized empty Git repository in /Users/golergka/Projects/Unity/tetris-tutorial/.git/
 {% endhighlight %}
 
-But before we create the first commit, we must place an appropriate **.gitignore** file in the project's root:
+But before we create the first commit, we must place an appropriate **.gitignore** file in the project's root, so that various system and Unity files won't be check in version cotrol. Thankfully, there's already a great **.gitignore** ready for Unity projects:
+
+{% gist AndrewAlexMac/8623191 %}
+
+Create **.gitignore** file in your project root, copy the contents of the above file there, and create the initial commit:
+
+{% highlight bash %}
+$ git status
+On branch master
+
+Initial commit
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+
+	.gitignore
+	ProjectSettings/
+
+nothing added to commit but untracked files present (use "git add" to track)
+$ git add --all
+$ git commit -m "Init commit"
+[master (root-commit) f19b309] Init commit
+ 14 files changed, 91 insertions(+)
+ create mode 100644 .gitignore
+ create mode 100644 ProjectSettings/AudioManager.asset
+ create mode 100644 ProjectSettings/DynamicsManager.asset
+ create mode 100644 ProjectSettings/EditorBuildSettings.asset
+ create mode 100644 ProjectSettings/EditorSettings.asset
+ create mode 100644 ProjectSettings/GraphicsSettings.asset
+ create mode 100644 ProjectSettings/InputManager.asset
+ create mode 100644 ProjectSettings/NavMeshLayers.asset
+ create mode 100644 ProjectSettings/NetworkManager.asset
+ create mode 100644 ProjectSettings/Physics2DSettings.asset
+ create mode 100644 ProjectSettings/ProjectSettings.asset
+ create mode 100644 ProjectSettings/QualitySettings.asset
+ create mode 100644 ProjectSettings/TagManager.asset
+ create mode 100644 ProjectSettings/TimeManager.asset
+{% endhighlight %}
+
+Congradulations! You now have a simple Unity project properly set up. Now we can start making the actual game.
+
+# The game loop
+
+And here we are — with our favorite editor opened on a blank file. May be it's Unity's Monodevelop, or may be you use Vim like me; but first, I want to step aside from a keyboard and talk about what we're going to do and why we're going to do it that way. If you want, you can skip the next section altogether, of course.
+
+## Little rant about game development
+
+Writing code is always a game of trade-offs. If you aim for perfomance first, you may end with arcane-looking C enchantments that will only work on specific hardware configuration and will require about hour per line to read and understand. If you decide that you want the most bug-free possible, you'll porbably end up installing a lot of testing processes and regulations, and changing a single little feature in your specifications will take up 6 months of commitee meetings, before you'll get the green light to change 6 lines of actual code.
+
+All these practices actually have their place in time; but in game development, I'd rather focus on maintainability and readability. When we develop games, we change stuff and work on a pretty complicated systems that have a lot of [emergent complexity](http://en.wikipedia.org/wiki/Emergent_gameplay) — so it's neccessary to keep things simple, since they'll probably get more complex in the future anyway.
+
+You don't write game code for yourself. You don't write it for your boss or your players; in the end, the most important person you're writing code is **the maintainer**. It may be you from the future, or a random dude that will be hired after you'll leave the project behind. Don't count on explaining him things. Don't expect him to be smart, or to have any additional time; always expect the poor fella to be on crunch time. He'll be working without proper documentation, and he'll ceirtanly won't have any time or patience to write it himself. If you give him two ways to do something, he will mix them up at best or even create a new hack. Every time he will encounter a beautiful abstractoin, he will probably break it; every time there's a possibility of doing something quick and dirty, he will do it that exact way. And believe me, you *will* be that guy in near future, on this project or the other; that is just a reality of game industry.
+
+What you need is to create a [pit of success](http://blog.codinghorror.com/falling-into-the-pit-of-success/) for him. Make it easy to do the right thing. Make the conventions obvious and easy to follow. Make the APIs that simple that his code will become self-documenting. And most importantly, make your code as easy to read and browse as possible.
+
+## What is Tetris about?
+
+

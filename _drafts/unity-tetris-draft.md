@@ -40,9 +40,9 @@ Next, we want to put our project for version control. git is today's standard fo
 
 Open terminal, navigate to the project's folder and init a repository:
 
-```bash
+{% highlight bash %}
 $ git init
 Initialized empty Git repository in /Users/golergka/Projects/Unity/tetris-tutorial/.git/
-```
+{% endhighlight %}
 
 But before we create the first commit, we must place an appropriate **.gitignore** file in the project's root:

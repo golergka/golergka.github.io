@@ -102,4 +102,42 @@ What you need is to create a [pit of success](http://blog.codinghorror.com/falli
 
 ## What is Tetris about?
 
+So, before writing a single line of code, let's try to formulate what our main functionality will be. I'd go with something like this:
 
+> On a playing field, and pieces fall down from the top one by one. While each piece falls, the player can rotate the pieces and move them left and right. When the piece can fall no more, all filled rows are filled, if there are any. After that, a new piece is created at the top once again, if there's a place for it — or, if there isn't any, the game is declared over.
+
+So, why don't we start with turning this exact small piece of documentation into code straight away? Just act like we already have all those objects, and leave the details for later.
+
+Let's create a new "GameLoop" script in the Unity editor. It will provide us with the default template:
+
+{% highlight c# %}
+using UnityEngine;
+using System.Collections;
+
+public class Game : MonoBehaviour {
+
+	// Use this for initialization
+	void Start () {
+	
+	}
+	
+	// Update is called once per frame
+	void Update () {
+	
+	}
+}
+{% endhighlight %}
+
+This is the default template that Unity uses for all it's C# source files. We use the base class **MonoBehaviour** there; it is typically used as base for all game code scripts. MonoBehaviours are attached to **GameObjects** and various methods are getting called when various events happen to the GameObject it's attached to (like **Start** above is called on object's initialization), or to the whole game itself (like **Update** is called every frame).
+
+So, let's try to realize the above descriptino as straightforward as we can. What are working on here? Obviously, we have one active tetramino, that is falling right now, and the rest of them that are lying down on the bottom. Let's call falled tetramino mass a "graveyard" and declase all the stuff that we have:
+
+{% highlight C# %}
+public class Game : MonoBehaviour {
+	Tetramino fallingTetramino;
+	TetraminoGraveyard graveyard;
+	// ...
+}
+{% endhighlight %}
+
+Then, let's 
